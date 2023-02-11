@@ -1,0 +1,8 @@
+FROM gcc:11.2
+
+# using bash shell
+SHELL ["/bin/bash", "-c"]
+ONBUILD COPY . /app
+ONBUILD WORKDIR /app
+ONBUILD RUN make && make clean && rm -rf Mafefile app/
+ONBUILD CMD ["./compiled-app"]

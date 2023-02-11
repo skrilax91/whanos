@@ -1,7 +1,17 @@
 FROM jenkins/jenkins:lts
 
 USER root
-RUN apt-get update && apt-get -y install apt-transport-https ca-certificates curl software-properties-common
+RUN apt-get update && apt-get -y install apt-transport-https ca-certificates curl software-properties-common gnupp lsb-release
+
+# Install Docker
+RUN mkdir -m 0755 -p /etc/apt/keyrings && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+RUN echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+
+RUN apt-get update && apt-get -y install docker-ce docker-ce-cli containerd.io
+
 
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 COPY ./configs/plugins.txt /usr/share/jenkins/ref/plugins.txt
