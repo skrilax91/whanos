@@ -4,3 +4,4 @@ git
 parameterized-trigger
 script-security
 role-strategy
+ws-cleanup

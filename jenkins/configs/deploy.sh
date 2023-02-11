@@ -38,7 +38,7 @@ if [[ ${#LANGUAGE[@]} != 1 ]]; then
 fi
 echo ${LANGUAGE[@]} matched
 
-image_name=$DOCKER_REGISTRY/whanos/whanos-$1-${LANGUAGE[0]}
+image_name=whanos-$1-${LANGUAGE[0]}
 
 if [[ -f Dockerfile ]]; then
 	docker build . -t $image_name
@@ -46,8 +46,4 @@ else
 	docker build . \
 		-f /images/${LANGUAGE[0]}/Dockerfile.standalone \
 		-t $image_name
-fi
-
-if ! docker push $image_name; then
-	exit 1
 fi
