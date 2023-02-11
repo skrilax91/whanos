@@ -20,12 +20,13 @@ freeStyleJob("link-project") {
 		stringParam("GIT_URL", null, 'Git repository url (e.g.: "https://github.com/skrilax91/Kappa-Engine")')
         stringParam("GIT_BRANCH", "main", 'Git branch (e.g.: "main")')
 
+        // Registry parameters
         booleanParam("PUSH", false, "Push to registry")
-
-        stringParam("REGISTRY", "registry.gitlab.com", "Registry url")
+        stringParam("REGISTRY", "docker.io", "Registry url")
         stringParam("REGISTRY_USER", null, "Registry user")
         stringParam("REGISTRY_PASSWORD", null, "Registry password")
-        stringParam("REGISTRY_PROJECT", null, "Registry project")
+        stringParam("REGISTRY_REPO", null, "Registry repository (e.g.: 'devix69/whanos')")
+        stringParam("REGISTRY_TAG", "latest", "Registry tag (e.g.: 'latest')")
 
         booleanParam("DEPLOY", true, "Deploy image using whanos.yml")
 	}
@@ -49,7 +50,8 @@ freeStyleJob("link-project") {
 						preBuildCleanup()
 					}
 					steps {
-						shell("/jenkins/deploy.sh \\"$NAME\\"")
+						shell("/jenkins/scripts/build.sh \\"$NAME\\"")
+                        shell("/jenkins/scripts/push.sh \\"$PUSH\\" \\"$NAME\\" \\"$REGISTRY\\" \\"$REGISTRY_USER\\" \\"$REGISTRY_PASSWORD\\" \\"$REGISTRY_REPO\\" \\"$REGISTRY_TAG\\"")
 					}
 				}
 			''')

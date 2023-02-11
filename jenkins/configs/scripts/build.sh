@@ -38,12 +38,15 @@ if [[ ${#LANGUAGE[@]} != 1 ]]; then
 fi
 echo ${LANGUAGE[@]} matched
 
-image_name=whanos-$1-${LANGUAGE[0]}
+## Build the image
+
+# Get the image name
+image_name=whanos-$1
 
 if [[ -f Dockerfile ]]; then
+    echo "Using Dockerfile"
 	docker build . -t $image_name
 else
-	docker build . \
-		-f /images/${LANGUAGE[0]}/Dockerfile.standalone \
-		-t $image_name
+    echo "Using Dockerfile.standalone"
+	docker build . -f /images/${LANGUAGE[0]}/Dockerfile.standalone -t $image_name
 fi
