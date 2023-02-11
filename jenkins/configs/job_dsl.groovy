@@ -26,6 +26,8 @@ freeStyleJob("link-project") {
         stringParam("REGISTRY_USER", null, "Registry user")
         stringParam("REGISTRY_PASSWORD", null, "Registry password")
         stringParam("REGISTRY_PROJECT", null, "Registry project")
+
+        booleanParam("DEPLOY", false, "Deploy image using whanos.yml")
 	}
 	steps {
 		dsl {
