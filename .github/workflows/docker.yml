@@ -2,25 +2,22 @@ name: docker
 
 on:
   push:
-  pull_request:
+  tags:
+    - '*'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build the Docker image
-        run: cd jenkins && docker build . --tag whanos:latest
-
-  push:
-    needs: build
     runs-on: ubuntu-latest
     env:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     steps:
       - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: cd jenkins && docker build .
+      - name: Tag the Docker image
+        run: docker tag devix69/whanos:latest devix69/whanos:${{ github.tag_name || "latest" }}
+      - name: Log into Docker Hub
+        run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
       - name: Push the Docker image
-        run: |
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker push devix69/whanos:latest
+        run: docker push devix69/whanos:${{ github.tag_name || "latest" }}
