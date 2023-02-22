@@ -16,9 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        run: cd jenkins && docker build .
-      - name: Tag the Docker image
-        run: docker tag devix69/whanos:latest devix69/whanos:latest
+        run: cd jenkins && docker build . -t devix69/whanos:lastest
       - name: Log into Docker Hub
         run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
       - name: Push the Docker image
