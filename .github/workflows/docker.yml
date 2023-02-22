@@ -2,8 +2,10 @@ name: docker
 
 on:
   push:
-  tags:
-    - '*'
+    branches:
+      - main
+    tags:
+      - '*'
 
 jobs:
   build:
