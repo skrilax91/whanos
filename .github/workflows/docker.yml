@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker build . --file jenkins/Dockerfile --tag whanos:latest
+        run: cd jenkins && docker build . --tag whanos:latest
 
   push:
     needs: build
