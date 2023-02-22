@@ -18,8 +18,8 @@ jobs:
       - name: Build the Docker image
         run: cd jenkins && docker build .
       - name: Tag the Docker image
-        run: docker tag devix69/whanos:latest devix69/whanos:${{ github.tag_name || "latest" }}
+        run: docker tag devix69/whanos:latest devix69/whanos:latest
       - name: Log into Docker Hub
         run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
       - name: Push the Docker image
-        run: docker push devix69/whanos:${{ github.tag_name || "latest" }}
+        run: docker push devix69/whanos:lastest
