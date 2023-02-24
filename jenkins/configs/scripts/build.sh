@@ -48,5 +48,6 @@ if [[ -f Dockerfile ]]; then
 	docker build . -t $image_name
 else
     echo "Using Dockerfile.standalone"
+	echo "Building image '$image_name' from '${LANGUAGE[@]}' project using Dockerfile.standalone in /images/${LANGUAGE[@]}/Dockerfile.standalone"
 	docker build . -f /images/${LANGUAGE[@]}/Dockerfile.standalone -t $image_name
 fi
