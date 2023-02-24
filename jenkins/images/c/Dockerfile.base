@@ -4,5 +4,5 @@ FROM gcc:11.2
 SHELL ["/bin/bash", "-c"]
 ONBUILD COPY . /app/src
 ONBUILD WORKDIR /app
-ONBUILD RUN cd src && make && mv compiled-app ../ && cd .. && rm src
+ONBUILD RUN cd src && make && mv compiled-app ../ && cd .. && rm -r src
 ONBUILD CMD ["./compiled-app"]
