@@ -1,0 +1,17 @@
+- hosts: master
+  tasks:
+    - name: install minikube
+      shell:
+        cmd: "curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/"
+
+    - name: install kubectl
+      shell:
+        cmd: "curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/"
+    
+    - name: start minikube
+      shell:
+        cmd: "minikube start"
+
+    - name: create whanos namespace
+      shell:
+        cmd: "kubectl create namespace whanos"

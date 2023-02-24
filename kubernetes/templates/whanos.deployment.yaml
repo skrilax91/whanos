@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whanos
+  namespace: whanos
+  labels:
+    env: dev
+    app: whanos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whanos
+  template:
+    metadata:
+      labels:
+        app: whanos
+    spec:
+      containers:
+        - name: whanos
+          image: devix69/whanos:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ADMIN_PASSWORD
+              value: admin
+            - name: DOCKER_HOST
+              value: tcp://localhost:2375
+
+        - name: docker
+          image: docker:dind
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 2375
+          env:
+            - name: DOCKER_TLS_CERTDIR
+              value: ""
+          securityContext:
+            privileged: true

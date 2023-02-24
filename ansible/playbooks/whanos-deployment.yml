@@ -1,0 +1,16 @@
+- hosts: master
+  tasks:
+    - name: copy kubernetes templates
+      copy:
+        src: "{{ item }}"
+        dest: "/tmp/kubernetes/templates/"
+      with_fileglob:
+        - "../../kubernetes/templates/*.yaml"
+
+    - name: deploy whanos instance in kubernetes cluster
+      shell:
+        cmd: "kubectl apply -f /tmp/kubernetes/templates/whanos.deployment.yaml"
+
+    - name: deploy whanos service in kubernetes cluster
+      shell:
+        cmd: "kubectl apply -f /tmp/kubernetes/templates/whanos.service.yaml"

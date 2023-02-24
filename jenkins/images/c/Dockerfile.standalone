@@ -1,8 +1,9 @@
-FROM gcc:11.2
+FROM whanos-c as builder
 
+FROM alpine:3.15
 # using bash shell
 SHELL ["/bin/bash", "-c"]
-ONBUILD COPY . /app
-ONBUILD WORKDIR /app
-ONBUILD RUN make && make clean && rm -rf Mafefile app/
-ONBUILD CMD ["./compiled-app"]
+# copy the compiled app from the builder image
+COPY --from=builder /app/compiled-app /app/compiled-app
+# run the app
+CMD ["./app/compiled-app"]

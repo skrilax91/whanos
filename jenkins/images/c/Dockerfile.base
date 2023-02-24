@@ -2,7 +2,7 @@ FROM gcc:11.2
 
 # using bash shell
 SHELL ["/bin/bash", "-c"]
-ONBUILD COPY . /app
+ONBUILD COPY . /app/src
 ONBUILD WORKDIR /app
-ONBUILD RUN make && make clean && rm -rf Mafefile app/
+ONBUILD RUN cd src && make && mv compiled-app ../ && cd .. && rm src
 ONBUILD CMD ["./compiled-app"]
