@@ -17,6 +17,7 @@ freeStyleJob("Whanos base images/Build all base images") {
 freeStyleJob("link-project") {
 	parameters {
         stringParam("NAME", null, "Name for the job")
+		stringParam("IMAGE_NAME", "my-image", "Name of the image (e.g.: 'my-project')")
 		stringParam("GIT_URL", null, 'Git repository url (e.g.: "https://github.com/skrilax91/Kappa-Engine")')
         stringParam("GIT_BRANCH", "main", 'Git branch (e.g.: "main")')
 
@@ -50,8 +51,8 @@ freeStyleJob("link-project") {
 						preBuildCleanup()
 					}
 					steps {
-						shell("/jenkins/scripts/build.sh \\"$NAME\\"")
-                        shell("/jenkins/scripts/push.sh \\"$PUSH\\" \\"$NAME\\" \\"$REGISTRY\\" \\"$REGISTRY_USER\\" \\"$REGISTRY_PASSWORD\\" \\"$REGISTRY_REPO\\" \\"$REGISTRY_TAG\\"")
+						shell("/jenkins/scripts/build.sh \\"$IMAGE_NAME\\"")
+                        shell("/jenkins/scripts/push.sh \\"$PUSH\\" \\"$IMAGE_NAME\\" \\"$REGISTRY\\" \\"$REGISTRY_USER\\" \\"$REGISTRY_PASSWORD\\" \\"$REGISTRY_REPO\\" \\"$REGISTRY_TAG\\"")
 					}
 				}
 			''')

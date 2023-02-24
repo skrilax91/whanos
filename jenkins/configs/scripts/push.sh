@@ -6,7 +6,7 @@
 
 echo "Pushing changes to remote repository ..."
 
-local_image_name=whanos-$2
+local_image_name=$2
 
 if [ "$1" = "true" ]; then
     echo "Pushing to docker hub"
