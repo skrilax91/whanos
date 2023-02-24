@@ -41,7 +41,7 @@ echo ${LANGUAGE[@]} matched
 ## Build the image
 
 # Get the image name
-image_name=whanos-$1
+image_name=whanos-${LANGUAGE[@]}
 
 if [[ -f Dockerfile ]]; then
     echo "Using Dockerfile"
