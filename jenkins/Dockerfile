@@ -18,4 +18,5 @@ COPY ./configs/plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt
 COPY ./images /images
 COPY ./configs /jenkins
+RUN chmod +x /jenkins/scripts/*.sh
 ENV CASC_JENKINS_CONFIG /jenkins/config.yml
