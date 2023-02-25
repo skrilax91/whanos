@@ -53,6 +53,7 @@ freeStyleJob("link-project") {
 					steps {
 						shell("/jenkins/scripts/build.sh \\"$IMAGE_NAME\\"")
                         shell("/jenkins/scripts/push.sh \\"$PUSH\\" \\"$IMAGE_NAME\\" \\"$REGISTRY\\" \\"$REGISTRY_USER\\" \\"$REGISTRY_PASSWORD\\" \\"$REGISTRY_REPO\\" \\"$REGISTRY_TAG\\"")
+						shell("/jenkins/scripts/deploy.sh \\"$REGISTRY_REPO\\" \\"$REGISTRY_TAG\\" \\"$IMAGE_NAME\\"")
 					}
 				}
 			''')

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deployment
+  namespace: whanos
+  annotations:
+    randNum: {{ randAlphaNum 5 | quote }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+      annotations:
+        randNum: {{ randAlphaNum 5 | quote }}
+    spec:
+      containers:
+      - name: {{ .Values.container.name }}
+        image: {{ .Values.container.image }}
+
+        {{- if .Values.deployment.resources }}
+        resources: {{ .Values.deployment.resources | toJson }}
+        {{- end }}
+
+        {{- if .Values.deployment.ports }}
+        ports:
+          {{- range .Values.deployment.ports }}
+          - containerPort: {{ . }}
+          {{- end }}
+        {{- end }}
