@@ -1,0 +1,9 @@
+FROM node:14.17.5-alpine
+
+RUN apk add --no-cache bash curl
+SHELL ["/bin/bash", "-c"]
+COPY befunge-cli.js /opt/befunge-cli.js
+RUN npm i befunge93
+COPY . /app
+WORKDIR /app
+CMD cat app/main.bf | node befunge-cli.js

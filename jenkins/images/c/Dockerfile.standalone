@@ -1,9 +1,13 @@
-FROM whanos-c as builder
+FROM gcc:11.2 as builder
+
+# using bash shell
+SHELL ["/bin/bash", "-c"]
+COPY . /app
+WORKDIR /app
+RUN make && rm -r app
 
 FROM alpine:3.15
 # using bash shell
 SHELL ["/bin/bash", "-c"]
-# copy the compiled app from the builder image
 COPY --from=builder /app/compiled-app /app/compiled-app
-# run the app
 CMD ["./app/compiled-app"]

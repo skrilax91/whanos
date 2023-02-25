@@ -1,0 +1,13 @@
+FROM maven:3.8-openjdk-17-slim as builder
+
+SHELL ["/bin/bash", "-c"]
+COPY . /app
+WORKDIR /app
+RUN mvn dependency:resolve -f app/pom.xml && mvn package -f app/pom.xml && cp app/target/app.jar . && rm -rf app/
+
+FROM openjdk:17
+
+SHELL ["/bin/bash", "-c"]
+COPY --from=builder /app /app
+WORKDIR /app
+CMD java -jar app.jar
