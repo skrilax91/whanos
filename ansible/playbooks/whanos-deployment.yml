@@ -14,3 +14,8 @@
     - name: deploy whanos service in kubernetes cluster
       shell:
         cmd: "kubectl apply -f /tmp/kubernetes/templates/whanos.service.yaml"
+
+    - name: set role permissions for whanos deployment
+      shell:
+        cmd: "kubectl create rolebinding whanos-admin --clusterrole=admin --serviceaccount=whanos:default --namespace=whanos"
+    

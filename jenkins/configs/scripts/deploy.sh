@@ -13,7 +13,7 @@ if [[ -f whanos.yml ]]; then
             echo "Timeout while waiting for the service to be ready."
             exit 1
         fi
-        sleep 1
+        sleep 2
         to=$((to-1))
         ip=$(kubectl get svc "$3"-service -n whanos -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
     done
